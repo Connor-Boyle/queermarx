@@ -6,61 +6,114 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    font-size: 1rem; /* Base font size */
 }
 
 /* Container styling */
 .container {
     max-width: 80%; /* Constrain the maximum width */
     margin: 0 auto; /* Center the container */
-    text-align: center; /* Center the text */
     perspective: 1000px; /* Set perspective for 3D effect */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Flashing class for animation */
 .flashing {
-    animation: neon 0.3s infinite alternate, tilt 3s infinite alternate ease-in-out;
+    animation: neon 5s infinite alternate, tilt 20s infinite alternate ease-in-out; /* Slowed down animation */
 }
 
 /* 3D Text Effect for Title */
 h1 {
-    font-size: 4em;
+    padding-top: 3rem;
+    font-size: 4rem; /* Responsive font size */
     color: gold;
     position: relative;
-    margin-bottom: 50px; /* Increase margin to separate elements */
+    text-transform: uppercase;
+    margin-bottom: 2rem; /* Responsive margin */
     transform: rotateX(10deg) rotateY(10deg); /* Add initial 3D transform */
+    max-width: 100%; /* Ensure the text doesn't overflow the container */
 }
 
 h1::before {
     content: attr(data-text);
+    padding-top: 3rem;
     position: absolute;
     top: 0.1em;
     left: 0.1em;
-    color: #FF4500;
+    color: purple;
     z-index: -1;
-    text-shadow: -0.05em 0.05em 0 #FF4500, -0.1em 0.1em 0 #FF4500, -0.15em 0.15em 0 #FF4500;
+    text-shadow: -0.05em 0.05em 0 #a200ff, -0.1em 0.1em 0 #f700ff, -0.15em 0.15em 0 #ff0095;
 }
 
-/* Paragraph styling */
-p {
-    font-size: 2em;
+/* Subheading styling */
+h2 {
+    font-size: 3rem; /* Responsive font size */
+    text-transform: uppercase;
     color: purple;
-    text-shadow: 0 0 2px gold, 0 0 4px #9400D3, 0 0 6px #9400D3, 0 0 8px #4B0082, 0 0 10px #4B0082;
+    text-shadow: 0 0 0.2em gold, 0 0 0.4em #9400D3, 0 0 0.6em #9400D3, 0 0 0.8em #4B0082, 0 0 1em #4B0082;
+}
+
+/* Heading styling */
+h3 {
+    font-size: 2.5rem; /* Responsive font size */
+    text-transform: uppercase;
+    color: purple;
+    margin: 1rem 0; /* Responsive margin */
+}
+
+/* Music player styling */
+.music-player {
+    margin-top: 2rem; /* Responsive margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    font-family: 'Orbitron', sans-serif;
+    background-color: gold;
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem; /* Responsive padding */
+    margin: 0.5rem; /* Responsive margin */
+    cursor: pointer;
+    font-size: 1.5rem; /* Responsive font size */
+    text-transform: uppercase;
+    width: 15rem; /* Ensure uniform button width */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+button:hover {
+    background-color: purple;
+    color: white;
+}
+
+button.playing {
+    background-color: purple;
+    color: white;
 }
 
 /* Flashing animation */
 @keyframes neon {
     0% {
-        text-shadow: 0 0 2px purple, 0 0 4px gold, 0 0 6px gold, 0 0 8px orange, 0 0 10px orange;
+        text-shadow: 0 0 0.2em purple, 0 0 0.4em gold, 0 0 0.6em gold, 0 0 0.8em orange, 0 0 1em orange;
     }
     50% {
-        text-shadow: 0 0 2px gold, 0 0 4px purple, 0 0 6px purple, 0 0 8px purple, 0 0 10px purple;
+        text-shadow: 0 0 0.2em gold, 0 0 0.4em purple, 0 0 0.6em purple, 0 0 0.8em purple, 0 0 1em purple;
     }
     100% {
-        text-shadow: 0 0 2px purple, 0 0 4px gold, 0 0 6px gold, 0 0 8px orange, 0 0 10px orange;
+        text-shadow: 0 0 0.2em purple, 0 0 0.4em gold, 0 0 0.6em gold, 0 0 0.8em orange, 0 0 1em orange;
     }
 }
 
@@ -80,27 +133,48 @@ p {
 /* Media Queries for Responsive Design */
 @media (max-width: 1200px) {
     h1 {
-        font-size: 3em;
+        font-size: 3rem;
     }
-    p {
-        font-size: 1.5em;
+    h2 {
+        font-size: 2.5rem;
+    }
+    h3 {
+        font-size: 2rem;
+    }
+    button {
+        font-size: 1.25rem;
+        width: 14rem; /* Ensure uniform button width */
     }
 }
 
 @media (max-width: 800px) {
     h1 {
-        font-size: 2.5em;
+        font-size: 2.5rem;
     }
-    p {
-        font-size: 1.2em;
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.75rem;
+    }
+    button {
+        font-size: 1.2rem;
+        width: 13rem; /* Ensure uniform button width */
     }
 }
 
 @media (max-width: 600px) {
     h1 {
-        font-size: 2em;
+        font-size: 2rem;
     }
-    p {
-        font-size: 1em;
+    h2 {
+        font-size: 1.75rem;
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    button {
+        font-size: 1rem;
+        width: 12rem; /* Ensure uniform button width */
     }
 }
