@@ -14,14 +14,34 @@ body {
 
 /* Container styling */
 .container {
-    animation: neon 0.3s infinite alternate;
+    max-width: 80%; /* Constrain the maximum width */
+    margin: 0 auto; /* Center the container */
+    text-align: center; /* Center the text */
+    perspective: 1000px; /* Set perspective for 3D effect */
 }
 
-/* Title styling */
+/* Flashing class for animation */
+.flashing {
+    animation: neon 0.3s infinite alternate, tilt 3s infinite alternate ease-in-out;
+}
+
+/* 3D Text Effect for Title */
 h1 {
     font-size: 4em;
     color: gold;
-    text-shadow: 0 0 2px purple, 0 0 4px #FFD700, 0 0 6px #FFD700, 0 0 8px #FF4500, 0 0 10px #FF4500;
+    position: relative;
+    margin-bottom: 50px; /* Increase margin to separate elements */
+    transform: rotateX(10deg) rotateY(10deg); /* Add initial 3D transform */
+}
+
+h1::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0.1em;
+    left: 0.1em;
+    color: #FF4500;
+    z-index: -1;
+    text-shadow: -0.05em 0.05em 0 #FF4500, -0.1em 0.1em 0 #FF4500, -0.15em 0.15em 0 #FF4500;
 }
 
 /* Paragraph styling */
@@ -41,5 +61,46 @@ p {
     }
     100% {
         text-shadow: 0 0 2px purple, 0 0 4px gold, 0 0 6px gold, 0 0 8px orange, 0 0 10px orange;
+    }
+}
+
+/* Tilt animation */
+@keyframes tilt {
+    0% {
+        transform: rotateX(10deg) rotateY(10deg);
+    }
+    50% {
+        transform: rotateX(20deg) rotateY(20deg);
+    }
+    100% {
+        transform: rotateX(10deg) rotateY(10deg);
+    }
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
+    h1 {
+        font-size: 3em;
+    }
+    p {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 800px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    p {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1em;
     }
 }
