@@ -10,8 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     font-size: 1rem; /* Base font size */
+    overflow: auto; /* Allow scrolling */
 }
 
 /* Container styling */
@@ -23,6 +23,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 2rem; /* Add padding for better appearance */
 }
 
 /* Flashing class for animation */
