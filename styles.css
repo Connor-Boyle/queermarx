@@ -58,28 +58,6 @@ h1 {
     --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
     clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
     animation: stack 340ms cubic-bezier(.46,.29,0,1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 1s alternate-reverse;
-    &:hover {
-		&:before, &:after{
-			position: absolute;
-			content: '11:11';
-			transform: translate(-50%,-50%);
-			z-index: -1;
-		}
-
-		&:before {
-			top: 49.5%;
-			left: 49.5%;
-			color: rgba($color-1,0.8);
-			animation: distort1 $base-duration linear infinite;
-		}
-
-		&:after {
-			top: 50.5%;
-			left: 50.5%;
-			color: rgba($color-2,0.8);
-			animation: distort2 $base-duration linear infinite;
-		}
-	}
 }
   
   .stack span:nth-child(odd) { --glitch-translate: 8px; }
