@@ -2,7 +2,7 @@
 body {
     font-family: 'Orbitron', sans-serif;
     background-color: black;
-    color: white;
+    color: gold;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -12,6 +12,7 @@ body {
     align-items: center;
     font-size: 1rem; /* Base font size */
     overflow: auto; /* Allow scrolling */
+    overflow-x: hidden;
 }
 
 /* Container styling */
@@ -23,43 +24,106 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem; /* Add padding for better appearance */
+    padding: 1rem; /* Add padding for better appearance */
+    overflow: visible;
+    margin-top: 0.1rem;
 }
 
 /* Flashing class for animation */
 .flashing {
-    animation: neon 5s infinite alternate, tilt 20s infinite alternate ease-in-out; /* Slowed down animation */
+    animation: neon 5s infinite alternate, tilt 60s infinite alternate ease-in-out; /* Slowed down animation */
 }
 
-/* 3D Text Effect for Title */
+/* Enhanced H1 Styling */
 h1 {
-    padding-top: 3rem;
-    font-size: 4rem; /* Responsive font size */
-    color: gold;
-    position: relative;
-    text-transform: uppercase;
-    margin-bottom: 2rem; /* Responsive margin */
-    transform: rotateX(10deg) rotateY(10deg); /* Add initial 3D transform */
-    max-width: 100%; /* Ensure the text doesn't overflow the container */
+    font-size: 0%;
+    visibility: hidden;
 }
 
-h1::before {
-    content: attr(data-text);
-    padding-top: 3rem;
-    position: absolute;
-    top: 0.1em;
-    left: 0.1em;
-    color: purple;
-    z-index: -1;
-    text-shadow: -0.05em 0.05em 0 #a200ff, -0.1em 0.1em 0 #f700ff, -0.15em 0.15em 0 #ff0095;
+
+.stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+  }
+  
+  .stack span {
+    font-weight: bold;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    font-size: 6rem;
+    --stack-height: calc(100% / var(--stacks) - 1px);
+    --inverse-index: calc(calc(var(--stacks) - 1) - var(--index));
+    --clip-top: calc(var(--stack-height) * var(--index));
+    --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
+    clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
+    animation: stack 340ms cubic-bezier(.46,.29,0,1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 1s alternate-reverse;
+    &:hover {
+		&:before, &:after{
+			position: absolute;
+			content: '11:11';
+			transform: translate(-50%,-50%);
+			z-index: -1;
+		}
+
+		&:before {
+			top: 49.5%;
+			left: 49.5%;
+			color: rgba($color-1,0.8);
+			animation: distort1 $base-duration linear infinite;
+		}
+
+		&:after {
+			top: 50.5%;
+			left: 50.5%;
+			color: rgba($color-2,0.8);
+			animation: distort2 $base-duration linear infinite;
+		}
+	}
 }
+  
+  .stack span:nth-child(odd) { --glitch-translate: 8px; }
+  .stack span:nth-child(even) { --glitch-translate: -8px; }
+
+
+  
+  @keyframes stack {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%);
+      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+    };
+    60% {
+      opacity: 0.5;
+      transform: translateX(50%);
+    }
+    80% {
+      transform: none;
+      opacity: 1;
+      text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+    }
+    100% {
+      text-shadow: none;
+    }
+  }
+  
+  @keyframes glitch {
+    0% {
+      text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+      transform: translate(var(--glitch-translate));
+    }
+    2% {
+      text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+    }
+    4%, 100% {  text-shadow: none; transform: none; }
+  }
 
 /* Subheading styling */
 h2 {
     font-size: 3rem; /* Responsive font size */
     text-transform: uppercase;
     color: purple;
-    text-shadow: 0 0 0.2em gold, 0 0 0.4em #9400D3, 0 0 0.6em #9400D3, 0 0 0.8em #4B0082, 0 0 1em #4B0082;
+    text-shadow: 0 0 0.09em gold, 0 0 0.18em #9400D3, 0 0 0.32em #9400D3, 0 0 0.4em #4B0082, 0 0 0.6em #4B0082;
 }
 
 /* Heading styling */
@@ -105,6 +169,26 @@ button.playing {
     color: white;
 }
 
+.email-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: black;
+    color: gold;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+  }
+  
+  .email-button:hover {
+    background-color: gold;
+    color: black;
+  }
+  
+  .email-button i {
+    margin-right: 5px;
+  }
+
 /* Flashing animation */
 @keyframes neon {
     0% {
@@ -118,23 +202,12 @@ button.playing {
     }
 }
 
-/* Tilt animation */
-@keyframes tilt {
-    0% {
-        transform: rotateX(10deg) rotateY(10deg);
-    }
-    50% {
-        transform: rotateX(20deg) rotateY(20deg);
-    }
-    100% {
-        transform: rotateX(10deg) rotateY(10deg);
-    }
-}
+
 
 /* Media Queries for Responsive Design */
 @media (max-width: 1200px) {
-    h1 {
-        font-size: 3rem;
+    .stack span {
+        font-size: 5rem;
     }
     h2 {
         font-size: 2.5rem;
@@ -149,8 +222,8 @@ button.playing {
 }
 
 @media (max-width: 800px) {
-    h1 {
-        font-size: 2.5rem;
+    .stack span {
+        font-size: 4rem;
     }
     h2 {
         font-size: 2rem;
@@ -165,11 +238,12 @@ button.playing {
 }
 
 @media (max-width: 600px) {
-    h1 {
-        font-size: 2rem;
+    .stack span {
+        font-size: 3rem;
     }
     h2 {
         font-size: 1.75rem;
+        text-shadow: 0 0 0.09em gold, 0 0 0.18em #9400D3, 0 0 0.3em #9400D3, 0 0 0.8em #4B0082, 0 0 0.01em #4B0082;
     }
     h3 {
         font-size: 1.5rem;
@@ -179,3 +253,4 @@ button.playing {
         width: 12rem; /* Ensure uniform button width */
     }
 }
+
